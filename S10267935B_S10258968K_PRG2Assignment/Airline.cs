@@ -19,7 +19,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         }
         public double CalculateFees()
         {
-            
+            return 1;
         }
         public bool RemoveFlight(Flight f)
         {
