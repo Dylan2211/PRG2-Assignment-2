@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Ngee ann\\Programming 2\\Assignment\\S10267935B_S10258968K_PRG2Assignment\\S10267935B_S10258968K_PRG2Assignment.csproj": {}
+    "C:\\Ngee ann\\Programming 2\\Assignment\\New folder\\S10267935B_S10258968K_PRG2Assignment\\S10267935B_S10258968K_PRG2Assignment.csproj": {}
   },
   "projects": {
-    "C:\\Ngee ann\\Programming 2\\Assignment\\S10267935B_S10258968K_PRG2Assignment\\S10267935B_S10258968K_PRG2Assignment.csproj": {
+    "C:\\Ngee ann\\Programming 2\\Assignment\\New folder\\S10267935B_S10258968K_PRG2Assignment\\S10267935B_S10258968K_PRG2Assignment.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Ngee ann\\Programming 2\\Assignment\\S10267935B_S10258968K_PRG2Assignment\\S10267935B_S10258968K_PRG2Assignment.csproj",
+        "projectUniqueName": "C:\\Ngee ann\\Programming 2\\Assignment\\New folder\\S10267935B_S10258968K_PRG2Assignment\\S10267935B_S10258968K_PRG2Assignment.csproj",
         "projectName": "S10267935B_S10258968K_PRG2Assignment",
-        "projectPath": "C:\\Ngee ann\\Programming 2\\Assignment\\S10267935B_S10258968K_PRG2Assignment\\S10267935B_S10258968K_PRG2Assignment.csproj",
+        "projectPath": "C:\\Ngee ann\\Programming 2\\Assignment\\New folder\\S10267935B_S10258968K_PRG2Assignment\\S10267935B_S10258968K_PRG2Assignment.csproj",
         "packagesPath": "C:\\Users\\Dylan\\.nuget\\packages\\",
-        "outputPath": "C:\\Ngee ann\\Programming 2\\Assignment\\S10267935B_S10258968K_PRG2Assignment\\obj\\",
+        "outputPath": "C:\\Ngee ann\\Programming 2\\Assignment\\New folder\\S10267935B_S10258968K_PRG2Assignment\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Users\\Dylan\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder"
