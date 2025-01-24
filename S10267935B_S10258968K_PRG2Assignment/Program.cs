@@ -22,5 +22,3 @@ foreach (string line in File.ReadLines("flights.csv").Skip(1))
     string Flight_Status = splitLine[4];
     Boarding_Gate[Flight_Number] = new Flight(Flight_Number, Flight_Origin, Flight_Destination, Flight_ExpectedTime, Flight_Status);
 }
-Console.WriteLine("Why?");
-Console.WriteLine();
