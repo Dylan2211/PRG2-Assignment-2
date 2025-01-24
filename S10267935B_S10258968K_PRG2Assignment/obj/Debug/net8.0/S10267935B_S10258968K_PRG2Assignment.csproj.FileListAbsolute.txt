@@ -1,0 +1,5 @@
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.GeneratedMSBuildEditorConfig.editorconfig
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.AssemblyInfoInputs.cache
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.AssemblyInfo.cs
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.csproj.CoreCompileInputs.cache
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.sourcelink.json

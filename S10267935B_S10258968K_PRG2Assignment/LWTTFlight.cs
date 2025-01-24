@@ -35,6 +35,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
             //    fees = 150;
             //}
             //return fees;
+            return 1;
         }
         public override string ToString()
         {
