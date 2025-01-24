@@ -15,7 +15,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         //Methods
         public bool AddFlight(Flight f)
         {
-
+            return false;
         }
         public double CalculateFees()
         {
@@ -23,7 +23,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         }
         public bool RemoveFlight(Flight f)
         {
-
+            return false;
         }
         public override string ToString()
         {

@@ -3,3 +3,13 @@ C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assign
 C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.AssemblyInfo.cs
 C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.csproj.CoreCompileInputs.cache
 C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.sourcelink.json
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\bin\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.exe
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\bin\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.deps.json
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\bin\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.runtimeconfig.json
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\bin\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.dll
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\bin\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.pdb
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.dll
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\refint\S10267935B_S10258968K_PRG2Assignment.dll
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.pdb
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\S10267935B_S10258968K_PRG2Assignment.genruntimeconfig.cache
+C:\Ngee ann\Programming 2\Assignment\New folder\S10267935B_S10258968K_PRG2Assignment\obj\Debug\net8.0\ref\S10267935B_S10258968K_PRG2Assignment.dll

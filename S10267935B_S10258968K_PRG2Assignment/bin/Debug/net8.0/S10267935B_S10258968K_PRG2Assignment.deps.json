@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "S10267935B_S10258968K_PRG2Assignment/1.0.0": {
+        "runtime": {
+          "S10267935B_S10258968K_PRG2Assignment.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "S10267935B_S10258968K_PRG2Assignment/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

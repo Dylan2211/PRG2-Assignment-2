@@ -41,3 +41,4 @@ foreach (var entry in FlightDictionary)
     Flight flight = entry.Value;
     Console.WriteLine($"{flight.FlightNumber} {flight.Origin} {flight.Destination} {flight.ExpectedTime:dd/MM/yyyy hh:mm tt}");
 }
+
