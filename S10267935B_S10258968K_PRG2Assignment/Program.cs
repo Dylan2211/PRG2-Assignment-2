@@ -22,9 +22,22 @@ foreach (string line in File.ReadLines("flights.csv").Skip(1))
     string Flight_Status = splitLine[4];
     Boarding_Gate[Flight_Number] = new Flight(Flight_Number, Flight_Origin, Flight_Destination, Flight_ExpectedTime, Flight_Status);
 }
-
-
-foreach (Flight f in Boarding_Gate.Values)
+// 2. Loading the flights.csv data into the FlightDictionary
+Dictionary<string, Flight> FlightDictionary = new Dictionary<string, Flight>();
+foreach (string line in File.ReadLines("flights.csv").Skip(1)) // Skipping header
 {
-    Console.WriteLine(f);
+    string[] splitLine = line.Split(",");
+    string FlightNumber = splitLine[0];
+    string Origin = splitLine[1];
+    string Destination = splitLine[2];
+    DateTime ExpectedTime = DateTime.Parse(splitLine[3]);
+    string Status = splitLine[4];
+    FlightDictionary[FlightNumber] = new Flight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+}
+
+// 3. Print all flight details
+foreach (var entry in FlightDictionary)
+{
+    Flight flight = entry.Value;
+    Console.WriteLine($"{flight.FlightNumber} {flight.Origin} {flight.Destination} {flight.ExpectedTime:dd/MM/yyyy hh:mm tt}");
 }
