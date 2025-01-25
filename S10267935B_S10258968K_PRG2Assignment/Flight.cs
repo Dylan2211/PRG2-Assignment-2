@@ -9,7 +9,6 @@ namespace S10267935B_S10258968K_PRG2Assignment
     class Flight
     {
         //Properties
-        public Airline Airline { get; set; }
         public string FlightNumber { get; set; }
         public string Origin { get; set; }
         public string Destination { get; set; }
@@ -20,6 +19,10 @@ namespace S10267935B_S10258968K_PRG2Assignment
         {
             return 0;
         }
+        public override string ToString()
+        {
+            return $"Flight Number: {FlightNumber,-7} Origin: {Origin,-15} Destination: {Destination,-15} Expected Time: {ExpectedTime:dd/MM/yyyy hh:mm tt}";
+        }
         //Constructor
         public Flight(string flightNumber, string origin, string destination, DateTime expectedTime, string status)
         {
@@ -28,10 +31,6 @@ namespace S10267935B_S10258968K_PRG2Assignment
             Destination = destination;
             ExpectedTime = expectedTime;
             Status = status;
-        }
-        public override string ToString()
-        {
-            return $"Flight Number: {FlightNumber,-7} Origin: {Origin,-15} Destination: {Destination,-15} Expected Time: {ExpectedTime:dd/MM/yyyy hh:mm tt}";
         }
     }
 }

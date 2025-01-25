@@ -27,7 +27,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         }
         public override string ToString()
         {
-            return base.ToString();
+            return $"Name: {Name,-10} Code: {Code,-10}";
         }
         //Constructors
         public Airline(string name, string code)
