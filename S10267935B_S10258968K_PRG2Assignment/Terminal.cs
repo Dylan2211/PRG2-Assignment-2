@@ -32,13 +32,13 @@ namespace S10267935B_S10258968K_PRG2Assignment
             return true;
         }
         //Constructor
-        public Terminal(string terminalName, Dictionary<string, Airline> airlines, Dictionary<string, Flight> flights, Dictionary<string, BoardingGate> boardingGates, Dictionary<string, double> gatefees)
+        public Terminal(string terminalName)
         {
             TerminalName = terminalName;
-            Airlines = airlines;
-            Flights = flights;
-            BoardingGates = boardingGates;
-            GateFees = gatefees;
+            Airlines = new Dictionary<string, Airline>();
+            Flights = new Dictionary<string, Flight>();
+            BoardingGates = new Dictionary<string, BoardingGate>();
+            GateFees = new Dictionary<string, double>();
         }
     }
 }

@@ -34,6 +34,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         {
             Name = name;
             Code = code;
+            Flights = new Dictionary<string, Flight>();
         }
     }
 }
