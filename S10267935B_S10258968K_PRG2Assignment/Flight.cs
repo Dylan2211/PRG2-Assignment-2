@@ -22,20 +22,20 @@ namespace S10267935B_S10258968K_PRG2Assignment
             // Base fees for the flight (this can be modified based on further information from the document)
             if (Destination.Contains("SIN"))  // Arriving at Singapore
             {
-                fee += 500; // Arrival fee
+                fee += 500; 
             }
             if (Origin.Contains("SIN"))  // Departing from Singapore
             {
-                fee += 800; // Departure fee
+                fee += 800;
             }
 
             // Additional fees for special request codes
             if (Status == "DDJB")
-                fee += 300;  // Double-decker jet bridge fee
+                fee += 300;
             else if (Status == "CFFT")
-                fee += 150;  // Connecting flight fast transfer fee
+                fee += 150;
             else if (Status == "LWTT")
-                fee += 500;  // Longer waiting time fee
+                fee += 500;
 
             return fee;
         }
