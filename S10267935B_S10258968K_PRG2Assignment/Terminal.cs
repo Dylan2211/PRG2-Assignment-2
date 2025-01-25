@@ -23,4 +23,22 @@ namespace S10267935B_S10258968K_PRG2Assignment
             GateFees = new Dictionary<string, double>();
         }
     }
+
+        public bool AddFlight(string flightCode, Flight flight)
+    {
+        foreach (var existingFlight in Flights.Values)
+        {
+            if (existingFlight.FlightNumber == flightCode)
+            {
+                Console.WriteLine($"Error: Flight {flightCode} already exists!");
+                return false;
+            }
+        }
+
+        Flights.Add(flightCode, flight);
+        Console.WriteLine($"Flight {flightCode} added successfully.");
+        return true;
+    }
+}
+    
 }
