@@ -17,7 +17,27 @@ namespace S10267935B_S10258968K_PRG2Assignment
         //Methods
         public double CalculateFees()
         {
-            return 0;
+            double fee = 0;
+
+            // Base fees for the flight (this can be modified based on further information from the document)
+            if (Destination.Contains("SIN"))  // Arriving at Singapore
+            {
+                fee += 500; // Arrival fee
+            }
+            if (Origin.Contains("SIN"))  // Departing from Singapore
+            {
+                fee += 800; // Departure fee
+            }
+
+            // Additional fees for special request codes
+            if (Status == "DDJB")
+                fee += 300;  // Double-decker jet bridge fee
+            else if (Status == "CFFT")
+                fee += 150;  // Connecting flight fast transfer fee
+            else if (Status == "LWTT")
+                fee += 500;  // Longer waiting time fee
+
+            return fee;
         }
         public override string ToString()
         {
