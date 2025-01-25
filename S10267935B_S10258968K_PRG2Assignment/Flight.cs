@@ -19,7 +19,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         {
             double fee = 0;
 
-            // Base fees for the flight (this can be modified based on further information from the document)
+            // Base fees for the flight
             if (Destination.Contains("SIN"))  // Arriving at Singapore
             {
                 fee += 500; 

@@ -25,12 +25,22 @@ namespace S10267935B_S10258968K_PRG2Assignment
         }
         public double CalculateFees()
         {
-            //Does this work?d
+            //Calculate total fees for all flights
             double totalFees = 0;
             foreach (var flight in Flights.Values)
             {
                 totalFees += flight.CalculateFees();
             }
+            // Promotional Conditions
+            if (Flights.Count >= 5)
+            {
+                totalFees *= 0.97; //3% discount
+            }
+            if (Flights.Count >= 3) // $350 discount for every 3 flights
+            {
+                totalFees -= Math.Floor((double)Flights.Count / 3) * 350; 
+            }
+
             return totalFees;
         }
         public bool RemoveFlight(Flight f)
