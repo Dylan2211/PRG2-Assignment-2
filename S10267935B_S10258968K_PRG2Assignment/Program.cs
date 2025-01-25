@@ -1,7 +1,8 @@
-// 1. Load Files
 using S10267935B_S10258968K_PRG2Assignment;
 
-List <Airline> AirlineList = new List<Airline>();
+// 1. Load Files
+//Airline
+List<Airline> AirlineList = new List<Airline>();
 foreach (string line in File.ReadLines("airlines.csv").Skip(1))
 {
     string[] splitLine = line.Split(",");
@@ -10,17 +11,15 @@ foreach (string line in File.ReadLines("airlines.csv").Skip(1))
     AirlineList.Add(new Airline(Airline_Name, Airline_Code));
 }
 
-
+//Boarding Gate
 Dictionary<string, Flight> Boarding_Gate = new Dictionary<string, Flight>();
-foreach (string line in File.ReadLines("flights.csv").Skip(1))
+foreach (string line in File.ReadLines("boardinggates.csv").Skip(1))
 {
     string[] splitLine = line.Split(",");
-    string Flight_Number = splitLine[0];
-    string Flight_Origin = splitLine[1];
-    string Flight_Destination = splitLine[2];
-    DateTime Flight_ExpectedTime = DateTime.Parse(splitLine[3]);
-    string Flight_Status = splitLine[4];
-    Boarding_Gate[Flight_Number] = new Flight(Flight_Number, Flight_Origin, Flight_Destination, Flight_ExpectedTime, Flight_Status);
+    string gateName = splitLine[0];
+    bool supportsCFFT = bool.Parse(splitLine[1]);
+    bool supportsDDJB = bool.Parse(splitLine[2]);
+    bool supportsLWTT = bool.Parse(splitLine[3]);
 }
 // 2. Loading the flights.csv data into the FlightDictionary
 Dictionary<string, Flight> FlightDictionary = new Dictionary<string, Flight>();
