@@ -12,33 +12,32 @@ namespace S10267935B_S10258968K_PRG2Assignment
         public string TerminalName { get; set; }
         public Dictionary<string, Airline> Airlines { get; set; }
         public Dictionary<string, Flight> Flights { get; set; }
-        public Dictionary<string, BoardingGate> boardingGates { get; set; }
+        public Dictionary<string, BoardingGate> BoardingGates { get; set; }
         public Dictionary<string, double> GateFees { get; set; }
-        public Terminal(string terminalName)
+        public Terminal(string terminalName, Dictionary<string, Airline> airlines, Dictionary<string, Flight> flights, Dictionary<string, BoardingGate> boardingGates, Dictionary<string, double> gatefees)
         {
             TerminalName = terminalName;
-            Airlines = new Dictionary<string, Airline>();
-            Flights = new Dictionary<string, Flight>();
-            boardingGates = new Dictionary<string, BoardingGate>();
-            GateFees = new Dictionary<string, double>();
+            Airlines = airlines;
+            Flights = flights;
+            BoardingGates = boardingGates;
+            GateFees = gatefees;
         }
-    }
+
 
         public bool AddFlight(string flightCode, Flight flight)
-    {
-        foreach (var existingFlight in Flights.Values)
         {
-            if (existingFlight.FlightNumber == flightCode)
+            foreach (var existingFlight in Flights.Values)
             {
-                Console.WriteLine($"Error: Flight {flightCode} already exists!");
-                return false;
+                if (existingFlight.FlightNumber == flightCode)
+                {
+                    Console.WriteLine($"Error: Flight {flightCode} already exists!");
+                    return false;
+                }
             }
-        }
 
-        Flights.Add(flightCode, flight);
-        Console.WriteLine($"Flight {flightCode} added successfully.");
-        return true;
+            Flights.Add(flightCode, flight);
+            Console.WriteLine($"Flight {flightCode} added successfully.");
+            return true;
+        }
     }
-}
-    
 }
