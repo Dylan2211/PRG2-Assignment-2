@@ -20,7 +20,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         public DateTime ExpectedTime { get; set; }
         public string Status { get; set; }
         //Methods
-        public abstract double CalculateFees()
+        public virtual double CalculateFees()
         {
             double fee = 0;
             // Base fees for the flight
@@ -32,13 +32,6 @@ namespace S10267935B_S10258968K_PRG2Assignment
             {
                 fee += 800;
             }
-            // Additional fees for special request codes
-            if (Status == "DDJB")
-                fee += 300;
-            else if (Status == "CFFT")
-                fee += 150;
-            else if (Status == "LWTT")
-                fee += 500;
             return fee;
         }
         public override string ToString()
