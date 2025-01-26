@@ -40,6 +40,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
             {
                 totalFees -= Math.Floor((double)Flights.Count / 3) * 350; 
             }
+            if ()
 
             return totalFees;
         }
