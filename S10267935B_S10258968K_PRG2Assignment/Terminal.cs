@@ -68,13 +68,12 @@ namespace S10267935B_S10258968K_PRG2Assignment
             }
         }
 
-        // Print the gate fees
+        // Print the Airline fees
         public void PrintAirlineFees()
         {
-            if (GateFees.Count == 0)
+            foreach (var airline in Airlines.Values)
             {
-                Console.WriteLine("No gate fees available.");
-                return;
+                Console.WriteLine($"{airline.Name} Fees: ${airline.CalculateFees():F2}");
             }
         }
 
