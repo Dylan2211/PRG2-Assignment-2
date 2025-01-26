@@ -21,7 +21,28 @@ namespace S10267935B_S10258968K_PRG2Assignment
         //Methods
         public double CalculateFees()
         {
-            return 0;
+            if (Flight == null)
+                return 0;
+            double totalFees = 300; 
+            if (Flight.Destination.Contains("SIN")) 
+                totalFees += 500;
+
+            if (Flight.Origin.Contains("SIN"))  
+                totalFees += 800;
+
+            switch (Flight.Status)  
+            {
+                case "DDJB":
+                    totalFees += 300;
+                    break;
+                case "CFFT":
+                    totalFees += 150;
+                    break;
+                case "LWTT":
+                    totalFees += 500;
+                    break;
+            }
+            return totalFees;
         }
         public override string ToString()
         {
