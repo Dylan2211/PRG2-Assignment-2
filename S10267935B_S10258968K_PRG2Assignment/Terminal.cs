@@ -17,18 +17,22 @@ namespace S10267935B_S10258968K_PRG2Assignment
         public Dictionary<string, double> GateFees { get; set; }
         //Methods
         // Add an airline to the terminal
-        public bool AddAirline(Airline airline)
+        public bool AddFlight(string flightCode, Flight flight)
         {
-            string airlineCode = airline.Code;
-            if (Airlines.ContainsKey(airlineCode))
+            foreach (var existingFlight in Flights.Values)
             {
-                Console.WriteLine($"Airline {airlineCode} already exists.");
-                return false;
+               if (existingFlight.FlightNumber == flightCode)
+                {
+                    Console.WriteLine($"Error: Flight {flightCode} already exists!");
+                    return false;
+                }
             }
-            Airlines[airlineCode] = airline;
-            Console.WriteLine($"Airline {airlineCode} added.");
-            return true;
-        }
+
+        //    Flights.Add(flightCode, flight);
+        //    Console.WriteLine($"Flight {flightCode} added successfully.");
+        //    return true;
+        //}
+
         // Add a boarding gate to the terminal
         public bool AddBoardingGate(BoardingGate boardingGate)
         {
@@ -45,22 +49,6 @@ namespace S10267935B_S10258968K_PRG2Assignment
         // Get the name of the Airline from the Flight
         public Airline GetAirlineFromFlight(Flight flight)
         {
-            if (airline.ContainsKey(flightCode))
-            {
-            }
-        }
-        // Get the Airline fees
-        public void PrintAirlineFees()
-        {
-            if (GateFees.Count == 0)
-            {
-                Console.WriteLine("No gate fees available.");
-                return;
-            }
-
-        }
-        public Airline GetAirlineFromFlight(Flight flight)
-        {
             if (flight != null)
             {
                 foreach (var airline in Airlines.Values)
@@ -71,13 +59,23 @@ namespace S10267935B_S10258968K_PRG2Assignment
                     }
                 }
                 Console.WriteLine("No airline can be found.");
+                return null; 
             }
             else
             {
                 Console.WriteLine("Wrong flight.");
+                return null;
+            }
+        }
+        //
+        public void PrintAirlineFees()
+        {
+            if (GateFees.Count == 0)
+            {
+                Console.WriteLine("No gate fees available.");
+                return;
             }
 
-            return null;
         }
         // ToString
         public override string ToString()
@@ -97,16 +95,6 @@ namespace S10267935B_S10258968K_PRG2Assignment
     }
 }
 
-        //public bool AddFlight(string flightCode, Flight flight)
-        //{
-        //    foreach (var existingFlight in Flights.Values)
-        //    {
-        //        if (existingFlight.FlightNumber == flightCode)
-        //        {
-        //            Console.WriteLine($"Error: Flight {flightCode} already exists!");
-        //            return false;
-        //        }
-        //    }
 
         //    Flights.Add(flightCode, flight);
         //    Console.WriteLine($"Flight {flightCode} added successfully.");
