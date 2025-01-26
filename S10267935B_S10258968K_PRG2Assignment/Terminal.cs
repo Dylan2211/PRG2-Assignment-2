@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
-
+// Ying Zhi
 namespace S10267935B_S10258968K_PRG2Assignment
 {
     class Terminal
@@ -16,25 +16,24 @@ namespace S10267935B_S10258968K_PRG2Assignment
         public Dictionary<string, BoardingGate> BoardingGates { get; set; }
         public Dictionary<string, double> GateFees { get; set; }
         //Methods
-        public bool AddFlight(string flightCode, Flight flight)
+        // Add an airline to the terminal
+        public bool AddAirline(Airline airline)
         {
-            foreach (var existingFlight in Flights.Values)
+            string airlineCode = airline.Code;
+            if (Airlines.ContainsKey(airlineCode))
             {
-                if (existingFlight.FlightNumber == flightCode)
-                {
-                    Console.WriteLine($"Error: Flight {flightCode} already exists!");
-                    return false;
-                }
+                Console.WriteLine($"Airline {airlineCode} already exists.");
+                return false;
             }
-
-            Flights.Add(flightCode, flight);
-            Console.WriteLine($"Flight {flightCode} added successfully.");
+            Airlines[airlineCode] = airline;
+            Console.WriteLine($"Airline {airlineCode} added.");
             return true;
         }
-
-        public bool AddBoardingGate(string gateCode, BoardingGate boardingGate)
+        // Add a boarding gate to the terminal
+        public bool AddBoardingGate(BoardingGate boardingGate)
         {
-            if (BoardingGates[gateCode] != null) 
+            string gateCode = boardingGate.GateName;
+            if (BoardingGates.ContainsKey(gateCode))
             {
                 Console.WriteLine($"Boarding Gate {gateCode} already exists.");
                 return false;
@@ -43,12 +42,14 @@ namespace S10267935B_S10258968K_PRG2Assignment
             Console.WriteLine($"Boarding Gate {gateCode} added.");
             return true;
         }
-        public Airline GetAirlineFromFlight(Airline airline)
+        // Get the name of the Airline from the Flight
+        public Airline GetAirlineFromFlight(Flight flight)
         {
             if (airline.ContainsKey(flightCode))
             {
             }
         }
+        // Get the Airline fees
         public void PrintAirlineFees()
         {
             if (GateFees.Count == 0)
@@ -57,6 +58,11 @@ namespace S10267935B_S10258968K_PRG2Assignment
                 return;
             }
 
+        }
+        // ToString
+        public override string ToString()
+        {
+            return $"Terminal Name: {TerminalName,-10} Airlines: {Airlines.Count} Flights: {Flights.Count} Boarding Gates: {BoardingGates.Count}";
         }
 
         //Constructor
@@ -70,3 +76,19 @@ namespace S10267935B_S10258968K_PRG2Assignment
         }
     }
 }
+
+        //public bool AddFlight(string flightCode, Flight flight)
+        //{
+        //    foreach (var existingFlight in Flights.Values)
+        //    {
+        //        if (existingFlight.FlightNumber == flightCode)
+        //        {
+        //            Console.WriteLine($"Error: Flight {flightCode} already exists!");
+        //            return false;
+        //        }
+        //    }
+
+        //    Flights.Add(flightCode, flight);
+        //    Console.WriteLine($"Flight {flightCode} added successfully.");
+        //    return true;
+        //}
