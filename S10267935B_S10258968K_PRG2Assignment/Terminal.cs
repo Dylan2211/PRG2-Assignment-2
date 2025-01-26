@@ -31,6 +31,18 @@ namespace S10267935B_S10258968K_PRG2Assignment
             Console.WriteLine($"Flight {flightCode} added successfully.");
             return true;
         }
+
+        public bool AddBoardingGate(string gateCode, BoardingGate boardingGate)
+        {
+            if (BoardingGates[gateCode] != null) 
+            {
+                Console.WriteLine($"Boarding Gate {gateCode} already exists.");
+                return false;
+            }
+            BoardingGates[gateCode] = boardingGate;
+            Console.WriteLine($"Boarding Gate {gateCode} added.");
+            return true;
+        }
         public Airline GetAirlineFromFlight(Airline airline)
         {
             if (airline.ContainsKey(flightCode))
