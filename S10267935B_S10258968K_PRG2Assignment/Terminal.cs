@@ -38,8 +38,8 @@ namespace S10267935B_S10258968K_PRG2Assignment
                 Console.WriteLine($"Boarding Gate {gateCode} already exists.");
                 return false;
             }
-            BoardingGates[gateCode] = boardingGate;
-            Console.WriteLine($"Boarding Gate {gateCode} added.");
+
+            BoardingGates.Add(gateCode, boardingGate);
             return true;
         }
         // Get the name of the Airline from the Flight
