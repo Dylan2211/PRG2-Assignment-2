@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace S10267935B_S10258968K_PRG2Assignment
 {
-    class Flight
+    abstract class Flight
     {
         //Properties
         public string FlightNumber { get; set; }
@@ -20,7 +20,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         public DateTime ExpectedTime { get; set; }
         public string Status { get; set; }
         //Methods
-        public double CalculateFees()
+        public abstract double CalculateFees()
         {
             double fee = 0;
             // Base fees for the flight
