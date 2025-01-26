@@ -12,12 +12,14 @@ namespace S10267935B_S10258968K_PRG2Assignment
 {
     class DDJBFlight : Flight
     {
+        // Properties
+        double requestFee = 100;
         // Methods
         public override double CalculateFees()
         {
             // First call the base method to get the initial fee
             double fee = base.CalculateFees();
-            fee += 100;
+            fee += requestFee;
             return fee;
         }
         public override string ToString()

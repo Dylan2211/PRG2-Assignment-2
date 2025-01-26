@@ -17,6 +17,8 @@ namespace S10267935B_S10258968K_PRG2Assignment
         {
             // First call the base method to get the initial fee
             double fee = base.CalculateFees();
+            // No Special Request Code
+            fee -= 50;
             return fee;
         }
         public override string ToString()

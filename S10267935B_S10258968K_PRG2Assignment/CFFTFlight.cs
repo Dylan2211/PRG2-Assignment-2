@@ -12,12 +12,14 @@ namespace S10267935B_S10258968K_PRG2Assignment
 {
     class CFFTFlight : Flight
     {
+        // Properties
+        double requestFee = 150;
         // Methods
         public override double CalculateFees()
         {
             // First call the base method to get the initial fee
             double fee = base.CalculateFees();
-            fee += 150;
+            fee += requestFee;
             return fee;
         }
         public override string ToString()

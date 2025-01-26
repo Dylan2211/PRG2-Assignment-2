@@ -4,6 +4,7 @@ using S10267935B_S10258968K_PRG2Assignment;
 // Student Name	: Dylan Wong
 // Partner Name	: Ying Zhi
 //==========================================================
+
 // 1. Load Files
 //Airline
 List<Airline> AirlineList = new List<Airline>();
@@ -44,7 +45,3 @@ foreach (var entry in FlightDictionary)
     Flight flight = entry.Value;
     Console.WriteLine($"{flight.FlightNumber} {flight.Origin} {flight.Destination} {flight.ExpectedTime:dd/MM/yyyy hh:mm tt}");
 }
-
-
-
-
