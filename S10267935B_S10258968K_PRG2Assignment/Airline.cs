@@ -27,9 +27,23 @@ namespace S10267935B_S10258968K_PRG2Assignment
         {
             //Calculate total fees for all flights
             double totalFees = 0;
+            double discount = 0;
+            string[] specificOrigins = { "DXB", "BKK", "NRT" };
             foreach (var flight in Flights.Values)
             {
                 totalFees += flight.CalculateFees();
+                if (flight.ExpectedTime.TimeOfDay < new TimeSpan(11,0,0) || flight.ExpectedTime.TimeOfDay > new TimeSpan(21, 0, 0))
+                {
+                    discount += 110;
+                }
+                if (specificOrigins.Any(code => flight.Origin.Contains(code))) //Complicated lambda expression to check if it includes specificOrigins
+                {
+                    discount += 25;
+                }
+                if (flight.Status == "")
+                {
+                    discount += 50;
+                }
             }
             // Promotional Conditions
             if (Flights.Count >= 5)
@@ -40,7 +54,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
             {
                 totalFees -= Math.Floor((double)Flights.Count / 3) * 350; 
             }
-            if ()
+            totalFees -= discount;
 
             return totalFees;
         }
