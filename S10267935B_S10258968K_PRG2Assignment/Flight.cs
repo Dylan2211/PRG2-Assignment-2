@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+//==========================================================
+// Student Number	: S10267935B, S10258968K
+// Student Name	: Dylan Wong
+// Partner Name	: Ying Zhi
+//==========================================================
 
 namespace S10267935B_S10258968K_PRG2Assignment
 {
@@ -18,7 +23,6 @@ namespace S10267935B_S10258968K_PRG2Assignment
         public double CalculateFees()
         {
             double fee = 0;
-
             // Base fees for the flight
             if (Destination.Contains("SIN"))  // Arriving at Singapore
             {
@@ -28,7 +32,6 @@ namespace S10267935B_S10258968K_PRG2Assignment
             {
                 fee += 800;
             }
-
             // Additional fees for special request codes
             if (Status == "DDJB")
                 fee += 300;
@@ -36,7 +39,6 @@ namespace S10267935B_S10258968K_PRG2Assignment
                 fee += 150;
             else if (Status == "LWTT")
                 fee += 500;
-
             return fee;
         }
         public override string ToString()

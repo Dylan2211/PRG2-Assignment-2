@@ -1,5 +1,9 @@
 using S10267935B_S10258968K_PRG2Assignment;
-
+//==========================================================
+// Student Number	: S10267935B, S10258968K
+// Student Name	: Dylan Wong
+// Partner Name	: Ying Zhi
+//==========================================================
 // 1. Load Files
 //Airline
 List<Airline> AirlineList = new List<Airline>();
