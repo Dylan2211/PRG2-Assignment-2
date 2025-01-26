@@ -59,6 +59,26 @@ namespace S10267935B_S10258968K_PRG2Assignment
             }
 
         }
+        public Airline GetAirlineFromFlight(Flight flight)
+        {
+            if (flight != null)
+            {
+                foreach (var airline in Airlines.Values)
+                {
+                    if (airline.Flights.ContainsKey(flight.FlightNumber))
+                    {
+                        return airline;
+                    }
+                }
+                Console.WriteLine("No airline can be found.");
+            }
+            else
+            {
+                Console.WriteLine("Wrong flight.");
+            }
+
+            return null;
+        }
         // ToString
         public override string ToString()
         {
