@@ -31,6 +31,22 @@ namespace S10267935B_S10258968K_PRG2Assignment
             Console.WriteLine($"Flight {flightCode} added successfully.");
             return true;
         }
+        public Airline GetAirlineFromFlight(Airline airline)
+        {
+            if (airline.ContainsKey(flightCode))
+            {
+            }
+        }
+        public void PrintAirlineFees()
+        {
+            if (GateFees.Count == 0)
+            {
+                Console.WriteLine("No gate fees available.");
+                return;
+            }
+
+        }
+
         //Constructor
         public Terminal(string terminalName)
         {
