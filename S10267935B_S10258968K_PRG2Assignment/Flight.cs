@@ -22,7 +22,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         //Methods
         public virtual double CalculateFees()
         {
-            double fee = 0;
+            double fee = 300;
             // Base fees for the flight
             if (Destination.Contains("SIN"))  // Arriving at Singapore
             {
