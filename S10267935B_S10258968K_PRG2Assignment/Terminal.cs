@@ -18,7 +18,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         public Dictionary<string, Airline> Airlines { get; set; }
         public Dictionary<string, Flight> Flights { get; set; }
         public Dictionary<string, BoardingGate> BoardingGates { get; set; }
-        public Dictionary<string, double>? GateFees { get; set; }
+        //public Dictionary<string, double>? GateFees { get; set; }
 
         // Methods
 
@@ -94,7 +94,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
             Airlines = new Dictionary<string, Airline>();
             Flights = new Dictionary<string, Flight>();
             BoardingGates = new Dictionary<string, BoardingGate>();
-            GateFees = new Dictionary<string, double>();
+            //GateFees = new Dictionary<string, double>();
         }
     }
 }
