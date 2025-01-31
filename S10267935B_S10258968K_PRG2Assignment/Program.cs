@@ -29,32 +29,40 @@ foreach (string line in File.ReadLines("boardinggates.csv").Skip(1))
 }
 
 // 2. Loading the flights.csv data into the FlightDictionary
-Dictionary<string, Flight> FlightDictionary = new Dictionary<string, Flight>();
 foreach (string line in File.ReadLines("flights.csv").Skip(1)) // Skipping header
 {
-    string[] splitLine = line.Split(",");
-    string FlightNumber = splitLine[0];
-    string Origin = splitLine[1];
-    string Destination = splitLine[2];
-    DateTime ExpectedTime = DateTime.Parse(splitLine[3]);
-    string Status = splitLine[4];
-    //FlightDictionary[FlightNumber] = new Flight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+    // Split the line by comma
+    string[] splitLine = line.Split(',');
+
+    // Read each field, trim whitespace
+    string FlightNo = splitLine[0].Trim();
+    string Origin = splitLine[1].Trim();
+    string Destination = splitLine[2].Trim();
+    DateTime ExpectedTime = DateTime.ParseExact(splitLine[3].Trim(), "h:mm tt", CultureInfo.InvariantCulture);
+    string Status = splitLine[4].Trim(); // This is the Special Request Code (CFFT, DDJB, etc.)
+
+    // Create the correct subclass based on Status
+    Flight newFlight;
+    
     if (Status == "CFFT")
     {
-        FlightDictionary[FlightNumber] = new CFFTFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+        newFlight = new CFFTFlight(FlightNo, Origin, Destination, ExpectedTime, Status);
     }
-    if (Status == "DDJB")
+    else if (Status == "DDJB")
     {
-        FlightDictionary[FlightNumber] = new DDJBFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+        newFlight = new DDJBFlight(FlightNo, Origin, Destination, ExpectedTime, Status);
     }
-    if (Status == "LWTT")
+    else if (Status == "LWTT")
     {
-        FlightDictionary[FlightNumber] = new LWTTFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+        newFlight = new LWTTFlight(FlightNo, Origin, Destination, ExpectedTime, Status);
     }
-    if (Status == "")
+    else
     {
-        FlightDictionary[FlightNumber] = new NORMFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+        newFlight = new NORMFlight(FlightNo, Origin, Destination, ExpectedTime, Status);
     }
+
+    // Add the Flight object to the dictionary
+    FlightDictionary.Add(FlightNo, newFlight);
 }
 
 // 3. Print all flight details
