@@ -38,7 +38,23 @@ foreach (string line in File.ReadLines("flights.csv").Skip(1)) // Skipping heade
     string Destination = splitLine[2];
     DateTime ExpectedTime = DateTime.Parse(splitLine[3]);
     string Status = splitLine[4];
-    FlightDictionary[FlightNumber] = new Flight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+    //FlightDictionary[FlightNumber] = new Flight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+    if (Status == "CFFT")
+    {
+        FlightDictionary[FlightNumber] = new CFFTFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+    }
+    if (Status == "DDJB")
+    {
+        FlightDictionary[FlightNumber] = new DDJBFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+    }
+    if (Status == "LWTT")
+    {
+        FlightDictionary[FlightNumber] = new LWTTFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+    }
+    if (Status == "")
+    {
+        FlightDictionary[FlightNumber] = new NORMFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+    }
 }
 
 // 3. Print all flight details
@@ -50,13 +66,13 @@ foreach (var entry in FlightDictionary)
 }
 
 // 4. List all boarding gates
+string[] ddjb = { "A10", "A11", "A12", "A13", "A20", "A21", "A22", "B10", "B11", "B12" };
+string[] cfft = { "B1", "B2", "B3", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "C14", "C15", "C16", "C17", "C18", "C19", "C20", "C21", "C22" };
+string[] lwtt = { "A1", "A2", "A20", "A21", "A22", "C14", "C15", "C16", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14", "B15", "B16", "B17", "B18", "B19", "B20", "B21", "B22" };
 foreach (var entry in BoardingGate)
 {
     List<string> specialRequests = new List<string>();
     BoardingGate gate = entry.Value;
-    string[] ddjb = { "A10", "A11", "A12", "A13", "A20", "A21", "A22", "B10", "B11", "B12" };
-    string[] cfft = { "B1", "B2", "B3", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10", "C11", "C12", "C13", "C14", "C15", "C16", "C17", "C18", "C19", "C20", "C21", "C22" };
-    string[] lwtt = { "A1", "A2", "A20", "A21", "A22", "C14", "C15", "C16", "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "B10", "B11", "B12", "B13", "B14", "B15", "B16", "B17", "B18", "B19", "B20", "B21", "B22" };
 
     if (ddjb.Any(gatename => gate.GateName.Equals(gatename)))
         specialRequests.Add("DDJB");
@@ -92,11 +108,13 @@ void DisplayFlightDetails()
                 if (a.Code == airlineCode)
                 {
                     airline = a;
+                    break;
                 }
             }
             if (airline == null)
             {
-                throw new Exception("Airline not found");
+                Console.WriteLine("Error: Airline not found. Please try again.");
+                continue;
             }
             // Display Flight Airline Number, Origin, Destination
             foreach (Flight f in airline.Flights.Values)
@@ -116,8 +134,14 @@ void DisplayFlightDetails()
                     break;
                 }
             }
+            if (flight == null)
+            {
+                Console.WriteLine("Error: Flight not found. Please try again.");
+                continue;
+            }
             // Display all flights from the airline
-            Console.WriteLine(flight + "Airline Name: " + airline.Name)
+            Console.WriteLine(flight + "Airline Name: " + airline.Name);
+            break;
         }
         catch (Exception e)
         {
