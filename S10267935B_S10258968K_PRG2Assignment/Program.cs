@@ -45,7 +45,8 @@ foreach (string line in File.ReadLines("flights.csv").Skip(1)) // Skipping heade
 foreach (var entry in FlightDictionary)
 {
     Flight flight = entry.Value;
-    Console.WriteLine($"{flight.FlightNumber} {flight.Origin} {flight.Destination} {flight.ExpectedTime:dd/MM/yyyy hh:mm tt}");
+    Console.WriteLine(flight);
+    //Console.WriteLine($"{flight.FlightNumber} {flight.Origin} {flight.Destination} {flight.ExpectedTime:dd/MM/yyyy hh:mm tt}");
 }
 
 // 4. List all boarding gates
@@ -69,7 +70,59 @@ foreach (var entry in BoardingGate)
 }
 
 // 7. Display full flight details from an airline
-foreach (Airline a in AirlineList)
+DisplayFlightDetails();
+void DisplayFlightDetails()
 {
-    Console.WriteLine(a);
+    while (true)
+    {
+        // List all airlines available
+        foreach (Airline a in AirlineList)
+        {
+            Console.WriteLine(a);
+        }
+        try
+        {
+            // Prompt user for airline code
+            Console.WriteLine("Please enter the 2-Letter Airline code: ");
+            string airlineCode = Console.ReadLine();
+            // Retrieve airline object
+            Airline airline = null;
+            foreach (Airline a in AirlineList)
+            {
+                if (a.Code == airlineCode)
+                {
+                    airline = a;
+                }
+            }
+            if (airline == null)
+            {
+                throw new Exception("Airline not found");
+            }
+            // Display Flight Airline Number, Origin, Destination
+            foreach (Flight f in airline.Flights.Values)
+            {
+                Console.WriteLine($"Flight Number: {f.FlightNumber,-7} Origin: {f.Origin,-15} Destination: {f.Destination,-15}");
+            }
+            // Prompt user for Flight Number
+            Console.WriteLine("Please enter the Flight Number: ");
+            string flightNumber = Console.ReadLine();
+            // Retrieve flight object
+            Flight flight = null;
+            foreach (Flight f in airline.Flights.Values)
+            {
+                if (f.FlightNumber == flightNumber)
+                {
+                    flight = f;
+                    break;
+                }
+            }
+            // Display all flights from the airline
+            Console.WriteLine(flight + "Airline Name: " + airline.Name)
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            continue;
+        }
+    }
 }
