@@ -156,3 +156,4 @@ void DisplayFlightDetails()
 }
 
 // 8. Modify flight details
+Console.WriteLine();
