@@ -66,11 +66,22 @@ foreach (string line in File.ReadLines("flights.csv").Skip(1)) // Skipping heade
 }
 
 // 3. Print all flight details
-foreach (var entry in FlightDictionary)
+
+foreach (var flight in FlightDictionary.Values)
 {
-    Flight flight = entry.Value;
-    Console.WriteLine(flight);
-    //Console.WriteLine($"{flight.FlightNumber} {flight.Origin} {flight.Destination} {flight.ExpectedTime:dd/MM/yyyy hh:mm tt}");
+    string airlineName = "Unknown Airline";
+
+    foreach (var airline in AirlineList)
+    {
+        if (flight.FlightNumber.StartsWith(airline.Code))
+        {
+            airlineName = airline.Name;
+            break;
+        }
+    }
+
+    Console.WriteLine($"{flight.FlightNumber,-10} {airlineName,-20} {flight.Origin,-20} {flight.Destination,-20} {flight.ExpectedTime:dd/M/yyyy} ");
+    Console.WriteLine($"{flight.ExpectedTime:h:mm:ss tt}");
 }
 
 // 4. List all boarding gates
