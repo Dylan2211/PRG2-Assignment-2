@@ -208,6 +208,66 @@ void AssignBoardingGateToFlight()
     Console.WriteLine($"\nFlight {selectedFlight.FlightNumber} has been assigned to Boarding Gate{selectedGate.GateName}!");
 }
 
+// 6. Create a new flight
+CreateNewFlight();
+
+void CreateNewFlight()
+{
+    while (true)
+    {
+        try
+        {
+            Console.Write("Enter Flight Number: ");
+            string FlightNumber = Console.ReadLine().Trim();
+
+            Console.Write("Enter Origin: ");
+            string Origin = Console.ReadLine().Trim();
+
+            Console.Write("Enter Destination: ");
+            string Destination = Console.ReadLine().Trim();
+
+            Console.Write("Enter Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
+            DateTime ExpectedTime = DateTime.Parse(Console.ReadLine().Trim());
+
+            Console.Write("Enter Special Request Code (CFFT/DDJB/LWTT/None): ");
+            string Status = Console.ReadLine().Trim().ToUpper();
+            if (Status == "NONE")
+                Status = "";
+
+            if (Status == "CFFT")
+            {
+                FlightDictionary[FlightNumber] = new CFFTFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+            }
+            if (Status == "DDJB")
+            {
+                FlightDictionary[FlightNumber] = new DDJBFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+            }
+            if (Status == "LWTT")
+            {
+                FlightDictionary[FlightNumber] = new LWTTFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+            }
+            if (Status == "")
+            {
+                FlightDictionary[FlightNumber] = new NORMFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+            }
+
+            string csvLine = $"{FlightNumber},{Origin},{Destination},{ExpectedTime:h:mm tt},{Status}";
+            File.AppendAllText("flights.csv", "\r\n" + csvLine);
+
+            Console.WriteLine($"\nFlight {FlightNumber} has been added!");
+
+            Console.Write("\nWould you like to add another flight? (Y/N) ");
+            if (Console.ReadLine().Trim().ToUpper() != "Y")
+                break;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error: {e.Message}");
+            Console.WriteLine("Please try again.");
+        }
+    }
+}
+
 // 7. Display full flight details from an airline
 DisplayFlightDetails();
 void DisplayFlightDetails()
