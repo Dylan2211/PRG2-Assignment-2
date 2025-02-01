@@ -156,4 +156,83 @@ void DisplayFlightDetails()
 }
 
 // 8. Modify flight details
-Console.WriteLine();
+//List all airlines available
+foreach (Airline a in AirlineList)
+{
+    Console.WriteLine(a);
+}
+//Prompt user for airline code
+string airline_code = Console.ReadLine();
+//Retrieve airline object
+Airline airline = null;
+foreach (Airline a in AirlineList)
+{
+    if (a.Code == airline_code)
+    {
+        airline = a;
+        break;
+    }
+}
+//Display Flight Airline Number, Origin, Destination
+foreach (Flight f in airline.Flights.Values)
+{
+    Console.WriteLine($"Flight Number: {f.FlightNumber,-7} Origin: {f.Origin,-15} Destination: {f.Destination,-15}");
+}
+Console.WriteLine("Please enter [1] to modify an existing flight and [2] to choose an existing flight to delete: ");
+string input = Console.ReadLine();
+if (input == "1")
+{
+    Console.WriteLine("Please enter the Flight Number: ");
+    string flightNumber = Console.ReadLine();
+    //Retrieve flight object
+    Flight flight = null;
+    foreach (Flight f in airline.Flights.Values)
+    {
+        if (f.FlightNumber == flightNumber)
+        {
+            flight = f;
+            break;
+        }
+    }
+    if (flight == null)
+    {
+        Console.WriteLine("Error: Flight not found. Please try again.");
+    }
+    else
+    {
+        Console.WriteLine("Please enter the new Origin: ");
+        string newOrigin = Console.ReadLine();
+        Console.WriteLine("Please enter the new Destination: ");
+        string newDestination = Console.ReadLine();
+        Console.WriteLine("Please enter the new Expected Time: ");
+        DateTime newExpectedTime = DateTime.Parse(Console.ReadLine());
+        flight.Origin = newOrigin;
+        flight.Destination = newDestination;
+        flight.ExpectedTime = newExpectedTime;
+        Console.WriteLine("Flight details updated successfully.");
+    }
+}
+else if (input == "2")
+{
+    Console.WriteLine("Please enter the Flight Number: ");
+    string flightNumber = Console.ReadLine();
+    //Retrieve flight object
+    Flight flight = null;
+    foreach (Flight f in airline.Flights.Values)
+    {
+        if (f.FlightNumber == flightNumber)
+        {
+            flight = f;
+            break;
+        }
+    }
+    if (flight == null)
+    {
+        Console.WriteLine("Error: Flight not found. Please try again.");
+    }
+    else
+    {
+        airline.RemoveFlight(flight);
+        Console.WriteLine("Flight deleted successfully.");
+    }
+}
