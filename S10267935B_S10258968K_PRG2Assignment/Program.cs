@@ -89,6 +89,128 @@ void ListAllBoardingGates()
     }
 }
 
+//5 Assign a boarding gate to a flight
+AssignBoardingGateToFlight();
+
+void AssignBoardingGateToFlight()
+{
+    Console.WriteLine("Assign a Boarding Gate to a Flight");
+    Console.WriteLine("=============================================");
+
+    Flight selectedFlight = null;
+    BoardingGate selectedGate = null;
+
+    // Prompt for Flight Number
+    while (true)
+    {
+        Console.WriteLine("Enter Flight Number:");
+        string flightNumber = Console.ReadLine().Trim();
+        if (FlightDictionary.TryGetValue(flightNumber, out selectedFlight))
+        {
+            break;
+        }
+        Console.WriteLine("Flight not found. Please try again.");
+    }
+
+    // Determine special request code from flight type
+    string GetSpecialRequestCode(Flight flight)
+    {
+        if (flight is CFFTFlight)
+        {
+            return "CFFT";
+        }
+        else if (flight is DDJBFlight)
+        {
+            return "DDJB";
+        }
+        else if (flight is LWTTFlight)
+        {
+            return "LWTT";
+        }
+        else if (flight is NORMFlight)
+        {
+            return "None";
+        }
+        else
+        {
+            return "Unknown";
+        }
+    }
+
+    // Display flight details
+    string src = GetSpecialRequestCode(selectedFlight);
+    Console.WriteLine($"\nFlight Number: {selectedFlight.FlightNumber}");
+    Console.WriteLine($"Origin: {selectedFlight.Origin}");
+    Console.WriteLine($"Destination: {selectedFlight.Destination}");
+    Console.WriteLine($"Expected Time: {selectedFlight.ExpectedTime:dd/MM/yyyy hh:mm tt}");
+    Console.WriteLine($"Special Request Code: {src}");
+
+    // Prompt for Boarding Gate
+    while (true)
+    {
+        Console.WriteLine("\nEnter Boarding Gate Name:");
+        string gateName = Console.ReadLine().Trim();
+
+        if (!BoardingGate.TryGetValue(gateName, out selectedGate))
+        {
+            Console.WriteLine("Invalid boarding gate. Please try again.");
+            continue;
+        }
+
+        if (selectedGate.Flight != null)
+        {
+            Console.WriteLine($"Boarding Gate {gateName} is already occupied by flight {selectedGate.Flight.FlightNumber}");
+            continue;
+        }
+
+        break;
+    }
+
+    // Assign flight to gate
+    selectedGate.Flight = selectedFlight;
+
+    Console.WriteLine($"Flight Number: {selectedFlight.FlightNumber}");
+    Console.WriteLine($"Special Request Code: {src}");
+    Console.WriteLine($"Boarding Gate: {selectedGate.GateName}");
+    Console.WriteLine($"Supports DDJB: {selectedGate.SupportsDDJB}");
+    Console.WriteLine($"Supports CFFT: {selectedGate.SupportsCFFT}");
+    Console.WriteLine($"Supports LWTT: {selectedGate.SupportsLWTT}");
+
+    // Update status
+    Console.WriteLine("\nWould you like to update the flight status? (Y/N)");
+    if (Console.ReadLine().Trim().ToUpper() == "Y")
+    {
+        Console.WriteLine("1. Delayed");
+        Console.WriteLine("2. Boarding");
+        Console.WriteLine("3. On Time");
+        Console.Write("Please select the new status of the flight: ");
+        string choice = Console.ReadLine().Trim();
+
+        if (choice == "1")
+        {
+            selectedFlight.Status = "Delayed";
+        }
+        else if (choice == "2")
+        {
+            selectedFlight.Status = "Boarding";
+        }
+        else if (choice == "3")
+        {
+            selectedFlight.Status = "On Time";
+        }
+        else
+        {
+            selectedFlight.Status = "On Time";
+        }
+    }
+    else
+    {
+        selectedFlight.Status = "On Time";
+    }
+
+    Console.WriteLine($"\nFlight {selectedFlight.FlightNumber} has been assigned to Boarding Gate{selectedGate.GateName}!");
+}
+
 // 7. Display full flight details from an airline
 DisplayFlightDetails();
 void DisplayFlightDetails()
