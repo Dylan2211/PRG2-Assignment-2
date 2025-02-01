@@ -94,9 +94,6 @@ AssignBoardingGateToFlight();
 
 void AssignBoardingGateToFlight()
 {
-    Console.WriteLine("Assign a Boarding Gate to a Flight");
-    Console.WriteLine("=============================================");
-
     Flight selectedFlight = null;
     BoardingGate selectedGate = null;
 
