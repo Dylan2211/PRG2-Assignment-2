@@ -5,6 +5,81 @@ using S10267935B_S10258968K_PRG2Assignment;
 // Partner Name	: Ying Zhi
 //==========================================================
 
+class Program
+{
+    static void Main(string[] args)
+    {
+        while (true)
+        {
+            // Display Menu
+            Console.WriteLine("=============================================");
+            Console.WriteLine("Welcome to Changi Airport Terminal 5");
+            Console.WriteLine("=============================================");
+            Console.WriteLine("1. List All Flights");
+            Console.WriteLine("2. List Boarding Gates");
+            Console.WriteLine("3. Assign a Boarding Gate to a Flight");
+            Console.WriteLine("4. Create Flight");
+            Console.WriteLine("5. Display Airline Flights");
+            Console.WriteLine("6. Modify Flight Details");
+            Console.WriteLine("7. Display Flight Schedule");
+            Console.WriteLine("0. Exit");
+            Console.Write("Please select your option: ");
+            
+            string choice = Console.ReadLine().Trim();
+
+            // Process user's choice
+            if (choice == "1")
+            {
+                // List All Flights
+                //Stuff();
+            }
+            else if (choice == "2")
+            {
+                // List Boarding Gates
+                //Stuff();
+            }
+            else if (choice == "3")
+            {
+                // Assign a Boarding Gate to a Flight
+                //Stuff();
+            }
+            else if (choice == "4")
+            {
+                // Create Flight
+                //Stuff();
+            }
+            else if (choice == "5")
+            {
+                // Display Airline Flights
+                //Stuff();
+            }
+            else if (choice == "6")
+            {
+                // Modify Flight Details
+                //Stuff();
+            }
+            else if (choice == "7")
+            {
+                // Display Flight Schedule
+                //Stuff();
+            }
+            else if (choice == "0")
+            {
+                // Exit the program
+                Console.WriteLine("Goodbye!");
+                break; // Exit the loop and terminate the program
+            }
+            else
+            {
+                Console.WriteLine("Invalid option. Please select a valid option.");
+            }
+        }
+    }
+}
+
+
+
+
 // 1. Load Files
 //Airline
 List<Airline> AirlineList = new List<Airline>();
