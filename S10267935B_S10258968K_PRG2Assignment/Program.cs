@@ -341,8 +341,10 @@ void ModifyFlightDetails()
         {
             Console.WriteLine(a);
         }
+
         //Prompt user for airline code
         string airline_code = Console.ReadLine();
+
         //Retrieve airline object
         Airline airline = null;
         foreach (Airline a in AirlineList)
@@ -358,13 +360,22 @@ void ModifyFlightDetails()
             Console.WriteLine("Error: Airline not found. Please try again.");
             return;
         }
+
         //Display Flight Airline Number, Origin, Destination
+        if (!AirlineList.Any()) 
+        {
+            Console.WriteLine("No flights available.");
+            return;
+        }
         foreach (Flight f in airline.Flights.Values)
         {
             Console.WriteLine($"Flight Number: {f.FlightNumber,-7} Origin: {f.Origin,-15} Destination: {f.Destination,-15}");
         }
+
+        // Prompt user for Option
         Console.WriteLine("Please enter [1] to modify an existing flight and [2] to choose an existing flight to delete: ");
         string input = Console.ReadLine();
+
         // 2 options
         if (input == "1")
         {
@@ -404,6 +415,7 @@ void ModifyFlightDetails()
                 //flight.Destination = newDestination;
                 //flight.ExpectedTime = newExpectedTime;
                 //flight.Status = newStatus;
+
                 if (newBoardingGate != "")
                 {
                     // Find old boarding gate
@@ -416,11 +428,13 @@ void ModifyFlightDetails()
                             break;
                         }
                     }
+
                     // Check if old boarding gate exists
                     if (oldBoardingGate != null)
                     {
                         oldBoardingGate.Flight = null;
                     }
+
                     // Find new boarding gate
                     string gate = null;
                     foreach (string gatename in BoardingGate.Keys)
@@ -431,6 +445,7 @@ void ModifyFlightDetails()
                             break;
                         }
                     }
+
                     // Check if new boarding gate exists
                     if (gate == null)
                     {
@@ -500,6 +515,11 @@ void ModifyFlightDetails()
             }
             airline.RemoveFlight(flight);
             Console.WriteLine("Flight deleted successfully.");
+        }
+        else
+        {
+            Console.WriteLine("Invalid input. Please try again.");
+            return;
         }
     }
     catch (Exception e)
