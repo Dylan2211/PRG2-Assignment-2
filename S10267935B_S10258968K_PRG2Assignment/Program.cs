@@ -114,6 +114,11 @@ while (true)
         // Display Flight Schedule
         DisplayScheduledFlights();
     }
+    else if (choice == "8")
+    {
+        // Process all unassigned flights to boarding gates in bulk
+        ProcessUnassignedFlightsBulk();
+    }
     else if (choice == "0")
     {
         // Exit the program
@@ -706,3 +711,116 @@ void DisplayScheduledFlights()
         }
     }
 }
+
+// 10. Process all unassigned flights to boarding gates in bulk
+ProcessUnassignedFlightsBulk();
+
+void ProcessUnassignedFlightsBulk()
+{
+    // Step 1: Find all unassigned flights
+    Queue<Flight> unassignedFlights = new Queue<Flight>();
+    foreach (var flight in FlightDictionary.Values)
+    {
+        bool isAssigned = false;
+        foreach (var gate in BoardingGate.Values)
+        {
+            if (gate.Flight == flight)
+            {
+                isAssigned = true;
+                break;
+            }
+        }
+
+        if (!isAssigned)
+        {
+            unassignedFlights.Enqueue(flight);
+        }
+    }
+    Console.WriteLine($"\nFlights needing gates: {unassignedFlights.Count}");
+
+    // Step 2: Count unassigned gates
+    int unassignedGates = 0;
+    foreach (var gate in BoardingGate.Values)
+    {
+        if (gate.Flight == null)
+        {
+            unassignedGates++;
+        }
+    }
+    Console.WriteLine($"Available gates: {unassignedGates}");
+
+    int processedFlights = 0;
+    int processedGates = 0;
+
+    // Step 3: Process each flight
+    while (unassignedFlights.Count > 0)
+    {
+        Flight currentFlight = unassignedFlights.Dequeue();
+        string requestCode = GetRequestCode(currentFlight);
+
+        BoardingGate bestGate = null;
+
+        // Step 4: Find matching gate
+        foreach (var gate in BoardingGate.Values)
+        {
+            if (gate.Flight != null) continue;
+
+            if (requestCode == "CFFT" && gate.SupportsCFFT)
+            {
+                bestGate = gate;
+                break;
+            }
+            else if (requestCode == "DDJB" && gate.SupportsDDJB)
+            {
+                bestGate = gate;
+                break;
+            }
+            else if (requestCode == "LWTT" && gate.SupportsLWTT)
+            {
+                bestGate = gate;
+                break;
+            }
+            else if (requestCode == "None" &&
+                     !gate.SupportsCFFT &&
+                     !gate.SupportsDDJB &&
+                     !gate.SupportsLWTT)
+            {
+                bestGate = gate;
+                break;
+            }
+        }
+
+        // Step 5: Assign gate if found
+        if (bestGate != null)
+        {
+            bestGate.Flight = currentFlight;
+            processedFlights++;
+            processedGates++;
+
+            // Display assignment details
+            Console.WriteLine($"\nAssigned {currentFlight.FlightNumber}:");
+            Console.WriteLine($"- Request: {requestCode}");
+            Console.WriteLine($"- Gate: {bestGate.GateName}");
+            Console.WriteLine($"- Supports CFFT: {bestGate.SupportsCFFT}");
+            Console.WriteLine($"- Supports DDJB: {bestGate.SupportsDDJB}");
+            Console.WriteLine($"- Supports LWTT: {bestGate.SupportsLWTT}");
+        }
+    }
+
+    // Step 6: Show results
+    Console.WriteLine($"\nTotal flights assigned: {processedFlights}");
+    Console.WriteLine($"Total gates used: {processedGates}");
+}
+
+string GetRequestCode(Flight flight)
+{
+    if (flight is CFFTFlight) return "CFFT";
+    if (flight is DDJBFlight) return "DDJB";
+    if (flight is LWTTFlight) return "LWTT";
+    return "None";
+}
+
+
+
+
+
