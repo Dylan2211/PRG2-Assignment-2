@@ -38,7 +38,7 @@ foreach (string line in File.ReadLines("flights.csv").Skip(1)) // Skipping heade
     string Destination = splitLine[2];
     DateTime ExpectedTime = DateTime.Parse(splitLine[3]);
     string Status = splitLine[4];
-
+    //Me and dylan had a misscoummication so he ended up accidentally committing this when i asked him to check my code.
     // Assigning the flight to the dictionary based on status
     if (Status == "CFFT")
     {
