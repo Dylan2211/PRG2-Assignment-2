@@ -5,6 +5,7 @@ using S10267935B_S10258968K_PRG2Assignment;
 // Partner Name	: Ying Zhi
 //==========================================================
 
+//Done by Dylan
 // 1. Load Files
 //Airline
 List<Airline> AirlineList = new List<Airline>();
@@ -28,6 +29,7 @@ foreach (string line in File.ReadLines("boardinggates.csv").Skip(1))
     BoardingGate.Add(gateName, new BoardingGate(gateName, supportsCFFT, supportsDDJB, supportsLWTT));
 }
 
+//Done by Ying Zhi
 // 2. Loading the flights.csv data into the FlightDictionary
 Dictionary<string, Flight> FlightDictionary = new Dictionary<string, Flight>();
 foreach (string line in File.ReadLines("flights.csv").Skip(1)) // Skipping header
@@ -58,6 +60,7 @@ foreach (string line in File.ReadLines("flights.csv").Skip(1)) // Skipping heade
     }
 }
 
+//Menu: Done by both of us.
 while (true)
 {
     // Display Menu
@@ -145,7 +148,7 @@ while (true)
 
 
 
-
+//Done by Ying Zhi
 // 3. Print all flight details
 void PrintAllFlightsDetails()
 {
@@ -157,7 +160,7 @@ void PrintAllFlightsDetails()
     }
 }
 
-
+//Done by Dylan
 // 4. List all boarding gates
 
 void ListAllBoardingGates()
@@ -182,6 +185,7 @@ void ListAllBoardingGates()
     }
 }
 
+//Done by Ying Zhi
 // 5 Assign a boarding gate to a flight
 
 
@@ -307,7 +311,7 @@ void AssignBoardingGateToFlight()
     Console.WriteLine($"\nFlight {selectedFlight.FlightNumber} has been assigned to Boarding Gate {selectedGate.GateName}!");
 }
 
-
+//Done by Ying Zhi
 // 6. Create a new flight
 
 
@@ -374,7 +378,7 @@ void CreateNewFlight()
     }
 }
 
-
+//Done by Dylan
 // 7. Display full flight details from an airline
 
 void DisplayFlightDetails()
@@ -437,6 +441,7 @@ void DisplayFlightDetails()
     }
 }
 
+//Done by Dylan
 // 8. Modify flight details
 
 void ModifyFlightDetails()
@@ -650,7 +655,7 @@ void ModifyFlightDetails()
 }
 
 
-
+//Done by Ying Zhi
 // 9. Display Scheduled Flight
 void DisplayScheduledFlights()
 {
@@ -723,6 +728,7 @@ void DisplayScheduledFlights()
     }
 }
 
+//Advanced Feature: Done by Ying Zhi
 // 10. Process all unassigned flights to boarding gates in bulk
 ProcessUnassignedFlightsBulk();
 
