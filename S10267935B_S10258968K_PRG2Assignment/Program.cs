@@ -452,7 +452,6 @@ void ModifyFlightDetails()
             if (airline == null)
             {
                 Console.WriteLine("Error: Airline not found. Please try again.");
-                return;
             }
         }
 
@@ -492,7 +491,7 @@ void ModifyFlightDetails()
             {
                 Console.WriteLine("Please enter the Flight Number: ");
                 string flightNumber = Console.ReadLine();
-                foreach (Flight f in airline.Flights.Values)
+                foreach (Flight f in FlightDictionary.Values)
                 {
                     if (f.FlightNumber == flightNumber)
                     {
@@ -503,14 +502,13 @@ void ModifyFlightDetails()
                 if (flight == null)
                 {
                     Console.WriteLine("Error: Flight not found. Please try again.");
-                    return;
                 }
             }
             Console.WriteLine("Please enter the new Origin: ");
             string newOrigin = Console.ReadLine();
             Console.WriteLine("Please enter the new Destination: ");
             string newDestination = Console.ReadLine();
-            Console.WriteLine("Please enter the new Expected Time: ");
+            Console.WriteLine("Please enter the new Expected Time (dd/mm/yyyy hh:mm): ");
             DateTime newExpectedTime = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("Please enter the new Status (if any): ");
             string newStatus = Console.ReadLine();
