@@ -71,6 +71,7 @@ while (true)
     Console.WriteLine("5. Display Airline Flights");
     Console.WriteLine("6. Modify Flight Details");
     Console.WriteLine("7. Display Flight Schedule");
+    Console.WriteLine("8. Process Unassigned Flights");
     Console.WriteLine("0. Exit");
     Console.WriteLine("=============================================");
     Console.Write("Please select your option: ");
@@ -81,16 +82,19 @@ while (true)
     // Process user's choice
     if (choice == "1")
     {
+        Console.WriteLine("\r\n=============================================\r\nList of Flights for Changi Airport Terminal 5\r\n=============================================");
         // List All Flights
         PrintAllFlightsDetails();
     }
     else if (choice == "2")
     {
+        Console.WriteLine("=============================================\r\nList of Boarding Gates for Changi Airport Terminal 5\r\n=============================================");
         // List Boarding Gates
         ListAllBoardingGates();
     }
     else if (choice == "3")
     {
+        Console.WriteLine("\r\n=============================================\r\nAssign a Boarding Gate to a Flight\r\n=============================================");
         // Assign a Boarding Gate to a Flight
         AssignBoardingGateToFlight();
     }
@@ -111,6 +115,7 @@ while (true)
     }
     else if (choice == "7")
     {
+        Console.WriteLine("=============================================\r\nFlight Schedule for Changi Airport Terminal 5\r\n=============================================\r\n");
         // Display Flight Schedule
         DisplayScheduledFlights();
     }
