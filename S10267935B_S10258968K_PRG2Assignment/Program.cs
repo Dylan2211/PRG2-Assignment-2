@@ -133,11 +133,11 @@ while (true)
 // 3. Print all flight details
 void PrintAllFlightsDetails()
 {
-    // Iterating through the FlightDictionary and printing each flight's details
     foreach (var entry in FlightDictionary)
     {
         Flight flight = entry.Value;
-        Console.WriteLine(flight);
+        Console.WriteLine($"{"Flight Number",-15}{"Airline Name",-20}{"Origin",-20}{"Destination",-20}{"Expected Departure/Arrival Time",-30}");
+        Console.WriteLine(flight.ToString(AirlineList));
     }
 }
 
