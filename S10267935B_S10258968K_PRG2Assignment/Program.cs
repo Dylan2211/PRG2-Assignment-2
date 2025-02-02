@@ -399,19 +399,22 @@ void ModifyFlightDetails()
             //flight.Status = newStatus;
             if (newBoardingGate != "")
             {
+                // Find old boarding gate
                 BoardingGate oldBoardingGate = null;
                 foreach (BoardingGate bg in BoardingGate.Values)
                 {
-                    if (bg.Flight == flight)
+                    if (bg.Flight.FlightNumber == flight.FlightNumber)
                     {
                         oldBoardingGate = bg;
                         break;
                     }
                 }
-                if (oldBoardingGate == null)
+                // Check if old boarding gate exists
+                if (oldBoardingGate != null)
                 {
                     oldBoardingGate.Flight = null;
                 }
+                // Find new boarding gate
                 string gate = null;
                 foreach (string gatename in BoardingGate.Keys)
                 {
@@ -421,39 +424,49 @@ void ModifyFlightDetails()
                         break;
                     }
                 }
+                // Check if new boarding gate exists
                 if (gate == null)
                 {
                     Console.WriteLine("Error: Boarding Gate not found. Please try again.");
+                    return;
                 }
                 else
                 {
                     BoardingGate[gate].Flight = flight;
                 }
+                // Remove flight from old boarding gate
+                if (oldBoardingGate != null)
+                {
+                    oldBoardingGate.Flight = null;
+                }
             }
-            
-            if (newSpecialRequest != "")
+
+            // Assigning Flight according to Special Request Codes
+            string FlightNumber = flight.FlightNumber;
+            if (newSpecialRequest == "")
             {
-                string FlightNumber = flight.FlightNumber;
-                if (newSpecialRequest == "CFFT")
-                {
-                    FlightDictionary[flight.FlightNumber] = new CFFTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
-                }
-                if (newSpecialRequest == "DDJB")
-                {
-                    FlightDictionary[flight.FlightNumber] = new DDJBFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
-                }
-                if (newSpecialRequest == "LWTT")
-                {
-                    FlightDictionary[flight.FlightNumber] = new LWTTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
-                }
-            }
-            else
-                {
                 flight.Origin = newOrigin;
                 flight.Destination = newDestination;
                 flight.ExpectedTime = newExpectedTime;
                 flight.Status = newStatus;
                 //FlightDictionary[flight.FlightNumber] = new NORMFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+            }
+            else if (newSpecialRequest == "CFFT")
+            {
+                FlightDictionary[flight.FlightNumber] = new CFFTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+            }
+            else if (newSpecialRequest == "DDJB")
+            {
+                FlightDictionary[flight.FlightNumber] = new DDJBFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+            }
+            else if (newSpecialRequest == "LWTT")
+            {
+                FlightDictionary[flight.FlightNumber] = new LWTTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+            }
+            else
+            {
+                Console.WriteLine("Invalid Special Request code. Please try again.");
+                return;
             }
             Console.WriteLine("Flight details updated successfully.");
         }
