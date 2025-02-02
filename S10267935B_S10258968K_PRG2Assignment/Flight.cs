@@ -34,9 +34,21 @@ namespace S10267935B_S10258968K_PRG2Assignment
             }
             return fee;
         }
-        public override string ToString()
+        public string ToString(List<Airline> airlineList)
         {
-            return $"Flight Number: {FlightNumber,-7} Origin: {Origin,-20} Destination: {Destination,-15} Expected Time: {ExpectedTime:dd/MM/yyyy hh:mm tt}";
+            string airlineCode = FlightNumber.Substring(0, 2);  // Extract airline code
+            string airlineName = "Unknown";
+
+            // Find the airline name from AirlineList
+            foreach (var airline in airlineList)
+            {
+                if (airline.Code == airlineCode)
+                {
+                    airlineName = airline.Name;
+                    break;
+                }
+            }
+            return $"{FlightNumber,-15}{airlineName,-20}{Origin,-20}{Destination,-20}{ExpectedTime:hh:mm tt}";
         }
 
         public int CompareTo(Flight other)
