@@ -376,6 +376,7 @@ void ModifyFlightDetails()
         if (flight == null)
         {
             Console.WriteLine("Error: Flight not found. Please try again.");
+            return;
         }
         else
         {
@@ -385,9 +386,75 @@ void ModifyFlightDetails()
             string newDestination = Console.ReadLine();
             Console.WriteLine("Please enter the new Expected Time: ");
             DateTime newExpectedTime = DateTime.Parse(Console.ReadLine());
-            flight.Origin = newOrigin;
-            flight.Destination = newDestination;
-            flight.ExpectedTime = newExpectedTime;
+            Console.WriteLine("Please enter the new Status (if any): ");
+            string newStatus = Console.ReadLine();
+            Console.WriteLine("Please enter the new Boarding Gate (if any): ");
+            string newBoardingGate = Console.ReadLine();
+            Console.WriteLine("Pleae enter the new Special Request Codes (if any): ");
+            string newSpecialRequest = Console.ReadLine().ToUpper();
+
+            //flight.Origin = newOrigin;
+            //flight.Destination = newDestination;
+            //flight.ExpectedTime = newExpectedTime;
+            //flight.Status = newStatus;
+            if (newBoardingGate != "")
+            {
+                BoardingGate oldBoardingGate = null;
+                foreach (BoardingGate bg in BoardingGate.Values)
+                {
+                    if (bg.Flight == flight)
+                    {
+                        oldBoardingGate = bg;
+                        break;
+                    }
+                }
+                if (oldBoardingGate == null)
+                {
+                    oldBoardingGate.Flight = null;
+                }
+                string gate = null;
+                foreach (string gatename in BoardingGate.Keys)
+                {
+                    if (gatename == newBoardingGate)
+                    {
+                        gate = gatename;
+                        break;
+                    }
+                }
+                if (gate == null)
+                {
+                    Console.WriteLine("Error: Boarding Gate not found. Please try again.");
+                }
+                else
+                {
+                    BoardingGate[gate].Flight = flight;
+                }
+            }
+            
+            if (newSpecialRequest != "")
+            {
+                string FlightNumber = flight.FlightNumber;
+                if (newSpecialRequest == "CFFT")
+                {
+                    FlightDictionary[flight.FlightNumber] = new CFFTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+                }
+                if (newSpecialRequest == "DDJB")
+                {
+                    FlightDictionary[flight.FlightNumber] = new DDJBFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+                }
+                if (newSpecialRequest == "LWTT")
+                {
+                    FlightDictionary[flight.FlightNumber] = new LWTTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+                }
+            }
+            else
+                {
+                flight.Origin = newOrigin;
+                flight.Destination = newDestination;
+                flight.ExpectedTime = newExpectedTime;
+                flight.Status = newStatus;
+                //FlightDictionary[flight.FlightNumber] = new NORMFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
+            }
             Console.WriteLine("Flight details updated successfully.");
         }
     }
