@@ -72,9 +72,11 @@ while (true)
     Console.WriteLine("6. Modify Flight Details");
     Console.WriteLine("7. Display Flight Schedule");
     Console.WriteLine("0. Exit");
+    Console.WriteLine("=============================================");
     Console.Write("Please select your option: ");
             
     string choice = Console.ReadLine().Trim();
+    Console.WriteLine();
 
     // Process user's choice
     if (choice == "1")
@@ -432,22 +434,26 @@ void ModifyFlightDetails()
         }
 
         //Prompt user for airline code
-        string airline_code = Console.ReadLine();
+        Airline airline = null;
 
         //Retrieve airline object
-        Airline airline = null;
-        foreach (Airline a in AirlineList)
+        while (airline == null)
         {
-            if (a.Code == airline_code)
+            Console.Write("Please enter the Airline Code: ");
+            string airline_code = Console.ReadLine();
+            foreach (Airline a in AirlineList)
             {
-                airline = a;
-                break;
+                if (a.Code == airline_code)
+                {
+                    airline = a;
+                    break;
+                }
             }
-        }
-        if (airline == null)
-        {
-            Console.WriteLine("Error: Airline not found. Please try again.");
-            return;
+            if (airline == null)
+            {
+                Console.WriteLine("Error: Airline not found. Please try again.");
+                return;
+            }
         }
 
         //Display Flight Airline Number, Origin, Destination
@@ -462,126 +468,138 @@ void ModifyFlightDetails()
         }
 
         // Prompt user for Option
-        Console.WriteLine("Please enter [1] to modify an existing flight and [2] to choose an existing flight to delete: ");
-        string input = Console.ReadLine();
+        string input = "";
+        while (input != "1" || input != "2")
+        {
+            Console.WriteLine("Please enter [1] to modify an existing flight and [2] to choose an existing flight to delete: ");
+            input = Console.ReadLine();
+            if (input == "1" || input == "2")
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please try again.");
+            }
+        }
 
         // 2 options
         if (input == "1")
         {
-            Console.WriteLine("Please enter the Flight Number: ");
-            string flightNumber = Console.ReadLine();
-            //Retrieve flight object
             Flight flight = null;
-            foreach (Flight f in airline.Flights.Values)
+            //Retrieve flight object
+            while (flight == null)
             {
-                if (f.FlightNumber == flightNumber)
+                Console.WriteLine("Please enter the Flight Number: ");
+                string flightNumber = Console.ReadLine();
+                foreach (Flight f in airline.Flights.Values)
                 {
-                    flight = f;
-                    break;
+                    if (f.FlightNumber == flightNumber)
+                    {
+                        flight = f;
+                        break;
+                    }
+                }
+                if (flight == null)
+                {
+                    Console.WriteLine("Error: Flight not found. Please try again.");
+                    return;
                 }
             }
-            if (flight == null)
-            {
-                Console.WriteLine("Error: Flight not found. Please try again.");
-                return;
-            }
-            else
-            {
-                Console.WriteLine("Please enter the new Origin: ");
-                string newOrigin = Console.ReadLine();
-                Console.WriteLine("Please enter the new Destination: ");
-                string newDestination = Console.ReadLine();
-                Console.WriteLine("Please enter the new Expected Time: ");
-                DateTime newExpectedTime = DateTime.Parse(Console.ReadLine());
-                Console.WriteLine("Please enter the new Status (if any): ");
-                string newStatus = Console.ReadLine();
-                Console.WriteLine("Please enter the new Boarding Gate (if any): ");
-                string newBoardingGate = Console.ReadLine();
-                Console.WriteLine("Pleae enter the new Special Request Codes (if any): ");
-                string newSpecialRequest = Console.ReadLine().ToUpper();
+            Console.WriteLine("Please enter the new Origin: ");
+            string newOrigin = Console.ReadLine();
+            Console.WriteLine("Please enter the new Destination: ");
+            string newDestination = Console.ReadLine();
+            Console.WriteLine("Please enter the new Expected Time: ");
+            DateTime newExpectedTime = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("Please enter the new Status (if any): ");
+            string newStatus = Console.ReadLine();
+            Console.WriteLine("Please enter the new Boarding Gate (if any): ");
+            string newBoardingGate = Console.ReadLine();
+            Console.WriteLine("Pleae enter the new Special Request Codes (if any): ");
+            string newSpecialRequest = Console.ReadLine().ToUpper();
 
+            //flight.Origin = newOrigin;
+            //flight.Destination = newDestination;
+            //flight.ExpectedTime = newExpectedTime;
+            //flight.Status = newStatus;
+
+            if (newBoardingGate != "")
+            {
+                // Find old boarding gate
+                BoardingGate oldBoardingGate = null;
+                foreach (BoardingGate bg in BoardingGate.Values)
+                {
+                    if (bg.Flight.FlightNumber == flight.FlightNumber)
+                    {
+                        oldBoardingGate = bg;
+                        break;
+                    }
+                }
+
+                // Check if old boarding gate exists
+                if (oldBoardingGate != null)
+                {
+                    oldBoardingGate.Flight = null;
+                }
+
+                // Find new boarding gate
+                string gate = null;
+                foreach (string gatename in BoardingGate.Keys)
+                {
+                    if (gatename == newBoardingGate)
+                    {
+                        gate = gatename;
+                        break;
+                    }
+                }
+
+                // Check if new boarding gate exists
+                if (gate == null)
+                {
+                    Console.WriteLine("Error: Boarding Gate not found. Please try again.");
+                    return;
+                }
+                else
+                {
+                    BoardingGate[gate].Flight = flight;
+                }
+                // Remove flight from old boarding gate
+                if (oldBoardingGate != null)
+                {
+                    oldBoardingGate.Flight = null;
+                }
+            }
+
+            // Assigning Flight according to Special Request Codes
+            string FlightNumber = flight.FlightNumber;
+            if (string.IsNullOrWhiteSpace(newSpecialRequest) )
+            {
+                FlightDictionary[FlightNumber] = new NORMFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
                 //flight.Origin = newOrigin;
                 //flight.Destination = newDestination;
                 //flight.ExpectedTime = newExpectedTime;
                 //flight.Status = newStatus;
-
-                if (newBoardingGate != "")
-                {
-                    // Find old boarding gate
-                    BoardingGate oldBoardingGate = null;
-                    foreach (BoardingGate bg in BoardingGate.Values)
-                    {
-                        if (bg.Flight.FlightNumber == flight.FlightNumber)
-                        {
-                            oldBoardingGate = bg;
-                            break;
-                        }
-                    }
-
-                    // Check if old boarding gate exists
-                    if (oldBoardingGate != null)
-                    {
-                        oldBoardingGate.Flight = null;
-                    }
-
-                    // Find new boarding gate
-                    string gate = null;
-                    foreach (string gatename in BoardingGate.Keys)
-                    {
-                        if (gatename == newBoardingGate)
-                        {
-                            gate = gatename;
-                            break;
-                        }
-                    }
-
-                    // Check if new boarding gate exists
-                    if (gate == null)
-                    {
-                        Console.WriteLine("Error: Boarding Gate not found. Please try again.");
-                        return;
-                    }
-                    else
-                    {
-                        BoardingGate[gate].Flight = flight;
-                    }
-                    // Remove flight from old boarding gate
-                    if (oldBoardingGate != null)
-                    {
-                        oldBoardingGate.Flight = null;
-                    }
-                }
-
-                // Assigning Flight according to Special Request Codes
-                string FlightNumber = flight.FlightNumber;
-                if (string.IsNullOrWhiteSpace(newSpecialRequest) )
-                {
-                    FlightDictionary[FlightNumber] = new NORMFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
-                    //flight.Origin = newOrigin;
-                    //flight.Destination = newDestination;
-                    //flight.ExpectedTime = newExpectedTime;
-                    //flight.Status = newStatus;
-                    //FlightDictionary[flight.FlightNumber] = new NORMFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
-                }
-                else if (newSpecialRequest == "CFFT")
-                {
-                    FlightDictionary[flight.FlightNumber] = new CFFTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
-                }
-                else if (newSpecialRequest == "DDJB")
-                {
-                    FlightDictionary[flight.FlightNumber] = new DDJBFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
-                }
-                else if (newSpecialRequest == "LWTT")
-                {
-                    FlightDictionary[flight.FlightNumber] = new LWTTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Special Request code. Please try again.");
-                    return;
-                }
-                Console.WriteLine("Flight details updated successfully.");
+                //FlightDictionary[flight.FlightNumber] = new NORMFlight(FlightNumber, Origin, Destination, ExpectedTime, Status);
             }
+            else if (newSpecialRequest == "CFFT")
+            {
+                FlightDictionary[flight.FlightNumber] = new CFFTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+            }
+            else if (newSpecialRequest == "DDJB")
+            {
+                FlightDictionary[flight.FlightNumber] = new DDJBFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+            }
+            else if (newSpecialRequest == "LWTT")
+            {
+                FlightDictionary[flight.FlightNumber] = new LWTTFlight(FlightNumber, newOrigin, newDestination, newExpectedTime, newStatus);
+            }
+            else
+            {
+                Console.WriteLine("Invalid Special Request code. Please try again.");
+                return;
+            }
+            Console.WriteLine("Flight details updated successfully.");
         }
         else if (input == "2")
         {

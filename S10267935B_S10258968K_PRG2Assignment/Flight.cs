@@ -36,7 +36,7 @@ namespace S10267935B_S10258968K_PRG2Assignment
         }
         public override string ToString()
         {
-            return $"Flight Number: {FlightNumber,-7} Origin: {Origin,-15} Destination: {Destination,-15} Expected Time: {ExpectedTime:dd/MM/yyyy hh:mm tt}";
+            return $"Flight Number: {FlightNumber,-7} Origin: {Origin,-20} Destination: {Destination,-15} Expected Time: {ExpectedTime:dd/MM/yyyy hh:mm tt}";
         }
 
         public int CompareTo(Flight other)
