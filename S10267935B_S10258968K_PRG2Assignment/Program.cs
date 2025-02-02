@@ -72,6 +72,7 @@ while (true)
     Console.WriteLine("6. Modify Flight Details");
     Console.WriteLine("7. Display Flight Schedule");
     Console.WriteLine("8. Process Unassigned Flights");
+    Console.WriteLine("9. Display Total Fee per Airline Fee Summary");
     Console.WriteLine("0. Exit");
     Console.WriteLine("=============================================");
     Console.Write("Please select your option: ");
@@ -123,6 +124,11 @@ while (true)
     {
         // Process all unassigned flights to boarding gates in bulk
         ProcessUnassignedFlightsBulk();
+    }
+    else if (choice == "9")
+    {
+        // Display Total Fee per Airline Fee Summary
+        DisplayTotalFeePerAirlineFeeSummary();
     }
     else if (choice == "0")
     {
@@ -823,4 +829,142 @@ string GetRequestCode(Flight flight)
     if (flight is DDJBFlight) return "DDJB";
     if (flight is LWTTFlight) return "LWTT";
     return "None";
+}
+
+// Add this helper method to map Special Request Codes to additional fees.
+// (Adjust the fee amounts as required by your specifications.)
+decimal GetAdditionalFee(string specialRequestCode)
+{
+    switch (specialRequestCode)
+    {
+        case "CFFT":
+            return 100m; // Example fee for CFFT
+        case "DDJB":
+            return 200m; // Example fee for DDJB
+        case "LWTT":
+            return 300m; // Example fee for LWTT
+        default:
+            return 0m;
+    }
+}
+
+
+// 10. Display the total fee per airline for the day.
+
+void DisplayTotalFeePerAirlineFeeSummary()
+{
+    // STEP 1: Check that all Flights have been assigned Boarding Gates.
+    List<Flight> unassignedFlights = new List<Flight>();
+    foreach (Flight flight in FlightDictionary.Values)
+    {
+        bool isAssigned = false;
+        foreach (BoardingGate gate in BoardingGate.Values)
+        {
+            if (gate.Flight == flight)
+            {
+                isAssigned = true;
+                break;
+            }
+        }
+        if (!isAssigned)
+            unassignedFlights.Add(flight);
+    }
+
+    if (unassignedFlights.Count > 0)
+    {
+        Console.WriteLine("ERROR: Some flights have not been assigned Boarding Gates.");
+        Console.WriteLine("Please assign Boarding Gates for all flights before running this feature again.");
+        return;
+    }
+
+    // Initialize overall totals.
+    decimal overallSubtotalFees = 0m;
+    decimal overallSubtotalDiscounts = 0m;
+
+    // STEP 2: Process each Airline.
+    foreach (Airline airline in AirlineList)
+    {
+        if (airline.Flights == null || airline.Flights.Count == 0)
+        {
+            Console.WriteLine($"Airline {airline.Name} has no flights scheduled.");
+            continue;
+        }
+
+        decimal airlineSubtotalFees = 0m;
+        decimal airlineSubtotalDiscounts = 0m;
+
+        // Process each flight for the airline.
+        foreach (Flight flight in airline.Flights.Values)
+        {
+            decimal fee = 0m;
+
+            // If the flight's Origin is Singapore, add $800.
+            if (flight.Origin == "SIN")
+                fee += 800m;
+            // If the flight's Destination is Singapore, add $500.
+            if (flight.Destination == "SIN")
+                fee += 500m;
+
+            // Determine the special request code based on the flight's type.
+            string requestCode = GetRequestCode(flight);
+            // If there is a Special Request Code (and it isn’t "None"), add the additional fee.
+            if (!string.IsNullOrWhiteSpace(requestCode) && requestCode != "None")
+                fee += GetAdditionalFee(requestCode);
+
+            // Apply the Boarding Gate Base Fee.
+            fee += 300m;
+
+            // Accumulate this flight's fee.
+            airlineSubtotalFees += fee;
+
+            // Compute discount based on promotional conditions.
+            decimal discount = ComputeDiscount(flight);
+            airlineSubtotalDiscounts += discount;
+        }
+
+        // Calculate the final fee for the airline.
+        decimal airlineFinalFee = airlineSubtotalFees - airlineSubtotalDiscounts;
+
+        // Display the breakdown for this airline.
+        Console.WriteLine($"Airline: {airline.Name}");
+        Console.WriteLine($"  Original Subtotal Fees: ${airlineSubtotalFees:N2}");
+        Console.WriteLine($"  Subtotal Discounts:     ${airlineSubtotalDiscounts:N2}");
+        Console.WriteLine($"  Final Fee Charged:      ${airlineFinalFee:N2}");
+        Console.WriteLine(new string('-', 40));
+
+        overallSubtotalFees += airlineSubtotalFees;
+        overallSubtotalDiscounts += airlineSubtotalDiscounts;
+    }
+
+    // Compute overall totals.
+    decimal overallFinalFees = overallSubtotalFees - overallSubtotalDiscounts;
+    decimal discountPercentage = overallFinalFees != 0
+        ? (overallSubtotalDiscounts / overallFinalFees) * 100
+        : 0;
+
+    // Display the overall totals.
+    Console.WriteLine("Overall Totals for Terminal 5:");
+    Console.WriteLine($"  Total Original Fees: ${overallSubtotalFees:N2}");
+    Console.WriteLine($"  Total Discounts:     ${overallSubtotalDiscounts:N2}");
+    Console.WriteLine($"  Total Final Fees:    ${overallFinalFees:N2}");
+    Console.WriteLine($"  Discount Percentage: {discountPercentage:N2}%");
+}
+
+decimal ComputeDiscount(Flight flight)
+{
+    decimal discount = 0m;
+
+    // Promotion 1: For flights arriving/departing before 11am or after 9pm
+    if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour >= 21)
+        discount += 110m;
+
+    // Promotion 2: If the flight's origin is DXB, BKK, or NRT
+    if (flight.Origin == "DXB" || flight.Origin == "BKK" || flight.Origin == "NRT")
+        discount += 25m;
+
+    // Promotion 3: If the flight does not indicate a Special Request Code
+    if (GetRequestCode(flight) == "None")
+        discount += 50m;
+
+    return discount;
 }
