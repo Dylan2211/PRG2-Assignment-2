@@ -819,8 +819,3 @@ string GetRequestCode(Flight flight)
     if (flight is LWTTFlight) return "LWTT";
     return "None";
 }
-
-
-
-
-
