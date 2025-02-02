@@ -507,3 +507,68 @@ void ModifyFlightDetails()
         Console.WriteLine("An error occurred: " + e.Message);
     }
 }
+
+
+
+//9 Display Scheduled Flight
+void DisplayScheduledFlights()
+{
+    Console.WriteLine("{0,-15} {1,-20} {2,-20} {3,-20} {4,-30} {5,-10} {6,-15}",
+                      "Flight Number", "Airline Name", "Origin", "Destination",
+                      "Expected Departure/Arrival", "Status", "Boarding Gate");
+
+    Dictionary<DateTime, List<Flight>> ScheduledFlight = new Dictionary<DateTime, List<Flight>>();
+
+    foreach (Flight flight in FlightDictionary.Values)
+    {
+        if (!ScheduledFlight.ContainsKey(flight.ExpectedTime))
+        {
+            ScheduledFlight[flight.ExpectedTime] = new List<Flight>();
+        }
+        ScheduledFlight[flight.ExpectedTime].Add(flight);
+    }
+
+    var sortedTimes = new List<DateTime>(ScheduledFlight.Keys);
+    sortedTimes.Sort();
+
+    foreach (DateTime time in sortedTimes)
+    {
+        foreach (Flight flight in ScheduledFlight[time])
+        {
+            string airlineCode = "";
+            if (flight.FlightNumber.Contains(" "))
+            {
+                airlineCode = flight.FlightNumber.Split(' ')[0];
+            }
+            else if (flight.FlightNumber.Length >= 2)
+            {
+                airlineCode = flight.FlightNumber.Substring(0, 2);
+            }
+
+            string airlineName = "Unknown";
+            foreach (Airline a in AirlineList)
+            {
+                if (a.Code == airlineCode)
+                {
+                    airlineName = a.Name;
+                    break;
+                }
+            }
+
+            string gate = "Unassigned";
+            foreach (KeyValuePair<string, BoardingGate> gateEntry in BoardingGate)
+            {
+                if (gateEntry.Value.Flight != null &&
+                    gateEntry.Value.Flight.FlightNumber == flight.FlightNumber)
+                {
+                    gate = gateEntry.Key;
+                    break;
+                }
+            }
+
+            Console.WriteLine("{0,-15} {1,-20} {2,-20} {3,-20} {4,-30} {5,-10} {6,-15}",
+                              flight.FlightNumber, airlineName, flight.Origin, flight.Destination,
+                              time.ToString("dd/MM/yyyy h:mm tt"), flight.Status, gate);
+        }
+    }
+}
